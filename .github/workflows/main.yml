@@ -27,7 +27,7 @@ jobs:
       - name: Zip release file
         uses: papeloto/action-zip@v1
         with:
-          files: bin\Release\app.publish\QReader.exe zxing.dll
+          files: bin\Release\QReader.exe bin\Release\zxing.dll
           dest: QReader.zip
 
       - name: Create Release
