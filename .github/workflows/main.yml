@@ -1,0 +1,47 @@
+name: Build Windows Application
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1
+
+      - name: Restore NuGet Packages
+        run: nuget restore QReader.sln
+
+      - name: Build and Publish Web App
+        run: msbuild QReader.sln /p:Configuration=Release
+
+      - name: Zip release file
+        uses: papeloto/action-zip@v1
+        with:
+          files: bin\Release\app.publish\QReader.exe zxing.dll
+          dest: QReader.zip
+
+      - name: Create Release
+        id: create_release
+        uses: zendesk/action-create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./QReader.zip
+          asset_name: QReader.zip
+          asset_content_type: application/zip
