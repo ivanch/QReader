@@ -29,6 +29,7 @@ namespace QReader
         /// </summary>
         private void InitializeComponent()
         {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
 			this.readClipboard = new System.Windows.Forms.Button();
 			this.textResult = new System.Windows.Forms.Label();
 			this.qrCodeImage = new System.Windows.Forms.PictureBox();
@@ -120,6 +121,7 @@ namespace QReader
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.qrCodeImage);
 			this.Controls.Add(this.readClipboard);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "frmMain";
 			this.Text = "QReader";
 			((System.ComponentModel.ISupportInitialize)(this.qrCodeImage)).EndInit();
