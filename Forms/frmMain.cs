@@ -19,7 +19,6 @@ namespace QReader
         {
             QRCodeReader reader = new QRCodeReader();
             textResult.ResetText();
-            linkResult.ResetText();
 
             Bitmap imageCode;
             try
@@ -31,7 +30,6 @@ namespace QReader
             catch (NullReferenceException)
             {
                 textResult.Text = "Clipboard doesn't contain an image!";
-                linkResult.Text = "Clipboard doesn't contain an image!";
                 return;
             }
 
@@ -44,18 +42,16 @@ namespace QReader
             if (result == null)
             {
                 textResult.Text = "result is null!";
-                linkResult.Text = "result is null!";
                 return;
             }
 
             textResult.Text = result.Text;
-            linkResult.Text = result.Text;
 
             if (autoOpen.Checked &&
                 (result.Text.StartsWith("http://") ||
                 result.Text.StartsWith("https://")) )
             {
-                System.Diagnostics.Process.Start(linkResult.Text);
+                System.Diagnostics.Process.Start(result.Text);
             }
 
             if (autoCopy.Checked)
