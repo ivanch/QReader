@@ -35,6 +35,7 @@ namespace QReader
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.autoOpen = new System.Windows.Forms.CheckBox();
 			this.autoCopy = new System.Windows.Forms.CheckBox();
+			this.autoDetect = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.qrCodeImage)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
@@ -97,11 +98,23 @@ namespace QReader
 			this.autoCopy.Text = "Auto copy to clipboard";
 			this.autoCopy.UseVisualStyleBackColor = true;
 			// 
+			// autoDetect
+			// 
+			this.autoDetect.AutoSize = true;
+			this.autoDetect.Location = new System.Drawing.Point(13, 115);
+			this.autoDetect.Name = "autoDetect";
+			this.autoDetect.Size = new System.Drawing.Size(166, 17);
+			this.autoDetect.TabIndex = 7;
+			this.autoDetect.Text = "Auto detect clipboard change";
+			this.autoDetect.UseVisualStyleBackColor = true;
+			this.autoDetect.CheckedChanged += new System.EventHandler(this.autoDetect_CheckedChanged);
+			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(582, 357);
+			this.Controls.Add(this.autoDetect);
 			this.Controls.Add(this.autoCopy);
 			this.Controls.Add(this.autoOpen);
 			this.Controls.Add(this.groupBox1);
@@ -125,6 +138,7 @@ namespace QReader
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox autoOpen;
         private System.Windows.Forms.CheckBox autoCopy;
-    }
+		private System.Windows.Forms.CheckBox autoDetect;
+	}
 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QReader.Utils;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ZXing;
@@ -9,13 +10,15 @@ namespace QReader
 {
     public partial class frmMain : Form
     {
+        private ClipBoardMonitor clipboardMonitor = new ClipBoardMonitor();
+
         public frmMain()
         {
             InitializeComponent();
             qrCodeImage.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-        private void readClipboard_Click(object sender, EventArgs e)
+		private void readClipboard_Click(object sender, EventArgs e)
         {
             QRCodeReader reader = new QRCodeReader();
             textResult.ResetText();
@@ -48,8 +51,8 @@ namespace QReader
             textResult.Text = result.Text;
 
             if (autoOpen.Checked &&
-                (result.Text.StartsWith("http://") ||
-                result.Text.StartsWith("https://")) )
+                ( result.Text.StartsWith("http://") ||
+                  result.Text.StartsWith("https://") ))
             {
                 System.Diagnostics.Process.Start(result.Text);
             }
@@ -59,5 +62,20 @@ namespace QReader
                 Clipboard.SetText(result.Text);
             }
         }
-    }
+
+		private void autoDetect_CheckedChanged(object sender, EventArgs e)
+		{
+			CheckBox checkBox = sender as CheckBox;
+			if (checkBox.Checked)
+			{
+				autoDetect.ForeColor = Color.FromKnownColor(KnownColor.Green);
+                clipboardMonitor.NewImage += readClipboard_Click;
+            }
+			else
+			{
+				autoDetect.ForeColor = Color.FromKnownColor(KnownColor.Black);
+                clipboardMonitor.NewImage -= readClipboard_Click;
+            }
+		}
+	}
 }
