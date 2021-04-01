@@ -16,6 +16,8 @@ namespace QReader
         {
             InitializeComponent();
             qrCodeImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            textResult.MaximumSize = new Size(210, 0);
+            textResult.AutoSize = true;
         }
 
 		private void readClipboard_Click(object sender, EventArgs e)
